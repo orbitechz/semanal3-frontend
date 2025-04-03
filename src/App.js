@@ -8,14 +8,14 @@ function App() {
 
   // Função para carregar os todos da API
   const fetchTodos = async () => {
-    const response = await axios.get('/todos');
+    const response = await axios.get('/api/todos');
     setTodos(response.data);
   };
 
   // Função para adicionar uma nova tarefa
   const addTodo = async () => {
     if (task.trim()) {
-      const response = await axios.post('/todos', { text: task });
+      const response = await axios.post('/api/todos', { text: task });
       setTodos([...todos, response.data]);
       setTask("");
     }
@@ -23,7 +23,7 @@ function App() {
 
   // Função para marcar a tarefa como concluída
   const toggleComplete = async (id) => {
-    const response = await axios.patch(`/todos/${id}`);
+    const response = await axios.patch(`/api/todos/${id}`);
     const updatedTodos = todos.map(todo =>
       todo._id === id ? response.data : todo
     );
@@ -32,7 +32,7 @@ function App() {
 
   // Função para excluir a tarefa
   const deleteTodo = async (id) => {
-    await axios.delete(`/todos/${id}`);
+    await axios.delete(`/api/todos/${id}`);
     setTodos(todos.filter(todo => todo._id !== id));
   };
 
